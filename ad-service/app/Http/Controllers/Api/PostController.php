@@ -17,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return PostResource::collection(Post::with('links')->get());
+        return PostResource::collection(Post::all());
     }
 
     /**
@@ -39,9 +39,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        return new PostResource(Post::with('links')->findOrFail($id));
+        return new PostResource($post);
     }
 
     /**
@@ -51,9 +51,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostStoreRequest $request, Post $post)
     {
-        //
+        $post->update($request->validated());
+
+        return new PostResource($post);
     }
 
     /**
