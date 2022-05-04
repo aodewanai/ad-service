@@ -17,7 +17,8 @@ class LinkFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'link' => $this->faker->imageUrl(),
+            'post_id' => $this->faker->numberBetween(1, 30)
         ];
     }
 }

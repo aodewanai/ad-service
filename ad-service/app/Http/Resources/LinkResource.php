@@ -15,9 +15,10 @@ class LinkResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            //'id' => $this->id,
             'link' => $this->link,
-            'created_at' => $this->created_at
+            //'post_id' => $this->post_id,
+            //'created_at' => $this->created_at
         ];
     }
 }
