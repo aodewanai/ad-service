@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('posts/front', [PostController::class, 'front']);
 
-Route::apiResources([
-    'posts' => PostController::class,
-]);
+Route::get('posts/back', [PostController::class, 'back']);
+
+Route::post('posts/create', [PostController::class, 'create']);
