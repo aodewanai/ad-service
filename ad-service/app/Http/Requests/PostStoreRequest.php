@@ -27,7 +27,8 @@ class PostStoreRequest extends FormRequest
             'title' => 'required|max:200',
             'description' => 'required|max:1000',
             'price' => 'required',
-            'links' => ''
+            "links"    => "required|array|max:3",
+            "links.*"  => "required"
         ];
     }
 }

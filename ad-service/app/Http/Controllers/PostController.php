@@ -8,14 +8,15 @@ use App\Http\Resources\PostMoreResource;
 use App\Http\Resources\PostResource;
 use App\Models\Link;
 use App\Models\Post;
+use Exception;
+use Illuminate\Database\Events\QueryExecuted;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Mockery\Exception\InvalidOrderException;
 
 class PostController extends Controller
 {
-    public function front()
-    {
-        return PostResource::collection(Post::all());
-    }
 
     public function back(Request $request)
     {
@@ -53,12 +54,26 @@ class PostController extends Controller
 
     public function create(PostStoreRequest $request)
     {
-    
-        $createdPost = Post::create($request->validated());
 
-        return [
-            'id' => $createdPost->id,
-            'code' => http_response_code()
-        ];
+            $createdPost = Post::create($request->validated());
+
+            $links = array();
+
+            $links = $request->input('links.*');
+
+            foreach ($links as $l) {
+                $linksr[] =  new Link([
+                    'link' => $l,
+                ]);
+            }
+
+
+            $createdPost->links()->saveMany($linksr);
+
+            return [
+                'id' => $createdPost->id,
+                'code' => http_response_code()
+            ];
+
     }
 }
