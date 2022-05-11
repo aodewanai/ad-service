@@ -18,7 +18,7 @@ use Mockery\Exception\InvalidOrderException;
 class PostController extends Controller
 {
 
-    public function back(Request $request)
+    public function index(Request $request)
     {
         $query = Post::query();
 
@@ -55,25 +55,24 @@ class PostController extends Controller
     public function create(PostStoreRequest $request)
     {
 
-            $createdPost = Post::create($request->validated());
+        $createdPost = Post::create($request->validated());
 
-            $links = array();
+        $links = array();
 
-            $links = $request->input('links.*');
+        $links = $request->input('links.*');
 
-            foreach ($links as $l) {
-                $linksr[] =  new Link([
-                    'link' => $l,
-                ]);
-            }
+        foreach ($links as $l) {
+            $linksr[] =  new Link([
+                'link' => $l,
+            ]);
+        }
 
 
-            $createdPost->links()->saveMany($linksr);
+        $createdPost->links()->saveMany($linksr);
 
-            return [
-                'id' => $createdPost->id,
-                'code' => http_response_code()
-            ];
-
+        return [
+            'id' => $createdPost->id,
+            'message' => 'Success!'
+        ];
     }
 }

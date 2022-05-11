@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('posts/back', [PostController::class, 'back']);
+Route::get('posts', [PostController::class, 'index']);
 
 Route::post('posts/create', [PostController::class, 'create']);
