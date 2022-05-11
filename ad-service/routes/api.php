@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('posts', [PostController::class, 'index']);
 
-Route::post('posts/create', [PostController::class, 'create']);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('posts', [PostController::class, 'index']);
+
+    Route::post('posts/create', [PostController::class, 'create'])->middleware(['throttle:limit']);
+});
+
+
+Route::post("login", [UserController::class, 'login']);
