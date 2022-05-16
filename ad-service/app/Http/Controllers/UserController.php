@@ -13,17 +13,22 @@ class UserController extends Controller
         $user = User::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response([
-                'message' => ['such user does not exist']
+                'message' => 'such user does not exist'
             ], 404);
         }
+        if ($user->tokens()->count() == 0) {
+            $token = $user->createToken('my-app-token')->plainTextToken;
 
-        $token = $user->createToken('my-app-token')->plainTextToken;
+            $response = [
+                'user' => $user,
+                'token' => $token
+            ];
 
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
-
-        return response($response, 201);
+            return response($response, 201);
+        } else {
+            return response([
+                'message' => 'you already have a token'
+            ], 400);
+        }
     }
 }
