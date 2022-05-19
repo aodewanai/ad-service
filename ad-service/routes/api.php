@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -17,11 +18,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::get('posts', [PostController::class, 'index']);
+Route::group(['middleware' => 'auth:users'], function () {
+    Route::get('/posts', [PostController::class, 'index']);
 
-    Route::post('posts/create', [PostController::class, 'create'])->middleware(['throttle:limit']);
+    Route::post('/posts/create', [PostController::class, 'create'])->middleware(['throttle:limit']);
 });
 
+Route::group(['middleware' => 'auth:admins'], function () {
+    Route::get('/admin/users', [AdminController::class, 'users']);
+    Route::post('/admin/ban/{id}', [AdminController::class, 'ban']);
+});
 
-Route::post("login", [UserController::class, 'login']);
+Route::post("/login", [UserController::class, 'login']);
+Route::post("/reg", [AdminController::class, 'reg']);
