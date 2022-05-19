@@ -10,6 +10,8 @@ class UserController extends Controller
 {
     function login(Request $request)
     {
+        /** @todo валідація */
+
         $user = User::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response([
@@ -20,11 +22,10 @@ class UserController extends Controller
             $token = $user->createToken('my-app-token')->plainTextToken;
 
             $response = [
-                'user' => $user,
                 'token' => $token
             ];
 
-            return response($response, 201);
+            return response($response, 200);
         } else {
             return response([
                 'message' => 'you already have a token'

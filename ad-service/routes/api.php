@@ -26,8 +26,8 @@ Route::group(['middleware' => 'auth:users'], function () {
 
 Route::group(['middleware' => 'auth:admins'], function () {
     Route::get('/admin/users', [AdminController::class, 'users']);
-    Route::post('/admin/ban/{id}', [AdminController::class, 'ban']);
+    Route::post('/admin/ban/{email}', [AdminController::class, 'ban']);
+    Route::post('/admin/unban/{email}', [AdminController::class, 'unban']);
 });
 
 Route::post("/login", [UserController::class, 'login']);
-Route::post("/reg", [AdminController::class, 'reg']);

@@ -14,8 +14,30 @@ class AdminController extends Controller
         return User::all();
     }
 
-    public function ban(Request $request){
+    public function ban(Request $request)
+    {
+        if (User::where('email', $request->email)->update(array('status' => 0))) {
+            return response([
+                'message' => 'user with email ' . $request->email . ' was banned',
+            ], 200);
+        } else {
+            return response([
+                'message' => 'user doesnt exixst',
+            ], 404);
+        }
 
     }
-    
+    public function unban(Request $request)
+    {
+        if (User::where('email', $request->email)->update(array('status' => 1))) {
+            return response([
+                'message' => 'user with email ' . $request->email . ' was unbanned',
+            ], 200);
+        } else {
+            return response([
+                'message' => 'user doesnt exixst',
+            ], 404);
+        }
+        
+    }
 }
