@@ -54,22 +54,12 @@ class PostController extends Controller
 
     public function create(PostStoreRequest $request)
     {
+        $post = $request->validated();
 
-        $createdPost = Post::create($request->validated());
+        $links = implode(" ", $post['links']);
+        $post['links'] = $links;
 
-        $links = array();
-
-        $links = $request->input('links');
-        
-
-        foreach ($links as $l) {
-            $linksr[] =  new Link([
-                'link' => $l,
-            ]);
-        }
-
-
-        $createdPost->links()->saveMany($linksr);
+        $createdPost = Post::create($post);
 
         return [
             'id' => $createdPost->id,

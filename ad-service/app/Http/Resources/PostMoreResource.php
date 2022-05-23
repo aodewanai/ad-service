@@ -19,7 +19,7 @@ class PostMoreResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'price' => $this->price,
-            'links' => LinkResource::collection($this->links),
+            'links' => $this->links,
             //'created_at' => $this->created_at 
         ];
     }

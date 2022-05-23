@@ -19,7 +19,7 @@ class PostResource extends JsonResource
             'title' => $this->title,
             //'description' => $this->description,
             'price' => $this->price,
-            'links' => LinkResource::collection($this->links)->first(),
+            'links' => stristr($this->links, ' ', true),
             //'created_at' => $this->created_at
         ];
     }

@@ -8,10 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'description', 'price'];
-
-    public function links()
-    {
-        return $this->hasMany(Link::class);
-    }
+    protected $fillable = ['title', 'description', 'price', 'links'];
 }
