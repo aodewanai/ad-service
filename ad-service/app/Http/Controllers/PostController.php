@@ -60,6 +60,7 @@ class PostController extends Controller
         $links = array();
 
         $links = $request->input('links');
+        
 
         foreach ($links as $l) {
             $linksr[] =  new Link([
