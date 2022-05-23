@@ -31,7 +31,6 @@ class UserController extends Controller
 
             return response($response, 200);
         } else {
-            //$user->tokens()
             return response([
                 'message' => 'you already have a token',
                 'token' => $user->tokens()

@@ -16,7 +16,7 @@ class AdminController extends Controller
 
     public function ban(Request $request)
     {
-        if (User::where('email', $request->email)->update(array('status' => 0))) {
+        if (User::where('email', $request->email)->update(array('status' => 'banned'))) {
             return response([
                 'message' => 'user with email ' . $request->email . ' was banned',
             ], 200);
@@ -29,7 +29,7 @@ class AdminController extends Controller
     }
     public function unban(Request $request)
     {
-        if (User::where('email', $request->email)->update(array('status' => 1))) {
+        if (User::where('email', $request->email)->update(array('status' => 'active'))) {
             return response([
                 'message' => 'user with email ' . $request->email . ' was unbanned',
             ], 200);
