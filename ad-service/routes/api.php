@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth:users'], function () {
     Route::get('/posts', [PostController::class, 'index']);
     Route::post('/posts/create', [PostController::class, 'create'])->middleware(['throttle:limit']);
+    Route::put('/posts/edit/{id}', [PostController::class, 'edit']);
 });
 
 Route::group(['middleware' => 'auth:admins'], function () {

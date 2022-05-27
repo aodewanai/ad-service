@@ -19,7 +19,7 @@ class PostResource extends JsonResource
             'title' => $this->title,
             //'description' => $this->description,
             'price' => $this->price,
-            'links' => stristr($this->links, ' ', true),
+            'links' => str_contains($this->links, ' ')? stristr($this->links, ' ', true) : $this->links
             //'created_at' => $this->created_at
         ];
     }
