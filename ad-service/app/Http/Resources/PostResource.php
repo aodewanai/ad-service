@@ -15,12 +15,12 @@ class PostResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            //'id' => $this->id,
             'title' => $this->title,
-            'description' => $this->description,
+            //'description' => $this->description,
             'price' => $this->price,
-            'links' => LinkResource::collection($this->links),
-            'created_at' => $this->created_at
+            'links' => stristr($this->links, ' ', true),
+            //'created_at' => $this->created_at
         ];
     }
 }
