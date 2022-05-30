@@ -2,18 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LinkStoreRequest;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Resources\PostMoreResource;
 use App\Http\Resources\PostResource;
-use App\Models\Link;
 use App\Models\Post;
-use Exception;
-use Illuminate\Database\Events\QueryExecuted;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Mockery\Exception\InvalidOrderException;
 
 class PostController extends Controller
 {
