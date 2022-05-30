@@ -3,6 +3,10 @@
 namespace App\Jobs;
 
 use App\Mail\AdminDailyReport as MailAdminDailyReport;
+use App\Models\Admin;
+use App\Models\Post;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,12 +36,27 @@ class AdminDailyReport implements ShouldQueue
      */
     public function handle()
     {
+        $users_per_day = User::whereDate('created_at', Carbon::today())->count();
+        $users_per_week = User::where('created_at', '>=', Carbon::today()->subDays(7))->count();
+        $users_per_month = User::where('created_at', '>=', Carbon::today()->subDays(30))->count();
+
+        $posts_per_day = Post::whereDate('created_at', Carbon::today())->count();
+        $posts_per_week = Post::where('created_at', '>=', Carbon::today()->subDays(7))->count();
+        $posts_per_month = Post::where('created_at', '>=', Carbon::today()->subDays(30))->count();
+
         $data = [
-            'first_name'=>'John', 
-            'last_name'=>'Doe', 
-            'email'=>'john@doe.com',
-            'password'=>'temp'
+            'users_per_day' => $users_per_day,
+            'users_per_week' => $users_per_week,
+            'users_per_month' => $users_per_month,
+
+            'posts_per_day' => $posts_per_day,
+            'posts_per_week' => $posts_per_week,
+            'posts_per_month' => $posts_per_month,
         ];
-        Mail::to('test@gmail.com')->send(new MailAdminDailyReport($data));
+
+        $admins = Admin::all();
+        foreach ($admins as $admin) {
+            Mail::to($admin->email)->send(new MailAdminDailyReport($data));
+        }
     }
 }
