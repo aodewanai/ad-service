@@ -36,22 +36,14 @@ class AdminDailyReport implements ShouldQueue
      */
     public function handle()
     {
-        $users_per_day = User::whereDate('created_at', Carbon::today())->count();
-        $users_per_week = User::where('created_at', '>=', Carbon::today()->subDays(7))->count();
-        $users_per_month = User::where('created_at', '>=', Carbon::today()->subDays(30))->count();
-
-        $posts_per_day = Post::whereDate('created_at', Carbon::today())->count();
-        $posts_per_week = Post::where('created_at', '>=', Carbon::today()->subDays(7))->count();
-        $posts_per_month = Post::where('created_at', '>=', Carbon::today()->subDays(30))->count();
-
         $data = [
-            'users_per_day' => $users_per_day,
-            'users_per_week' => $users_per_week,
-            'users_per_month' => $users_per_month,
+            'users_per_day' => User::whereDate('created_at', Carbon::today())->count(),
+            'users_per_week' =>  User::where('created_at', '>=', Carbon::today()->subDays(7))->count(),
+            'users_per_month' => User::where('created_at', '>=', Carbon::today()->subDays(30))->count(),
 
-            'posts_per_day' => $posts_per_day,
-            'posts_per_week' => $posts_per_week,
-            'posts_per_month' => $posts_per_month,
+            'posts_per_day' => Post::whereDate('created_at', Carbon::today())->count(),
+            'posts_per_week' => Post::where('created_at', '>=', Carbon::today()->subDays(7))->count(),
+            'posts_per_month' => Post::where('created_at', '>=', Carbon::today()->subDays(30))->count()
         ];
 
         $admins = Admin::all();

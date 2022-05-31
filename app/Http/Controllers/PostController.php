@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Resources\PostMoreResource;
 use App\Http\Resources\PostResource;
+use App\Mail\AdminDailyReport;
+use App\Models\Admin;
 use App\Models\Post;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {

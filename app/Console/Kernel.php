@@ -16,7 +16,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //$details='test1@gmail.com';
         $schedule->job(new AdminDailyReport)->dailyAt('9:00')->timezone('Europe/Kiev');
     }
 
