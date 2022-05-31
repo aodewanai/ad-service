@@ -30,4 +30,4 @@ Route::group(['middleware' => 'auth:admins'], function () {
     Route::post('/admin/unban/{email}', [AdminController::class, 'unban']);
 });
 
-//Route::post("/login", [UserController::class, 'login']);
+Route::post("/login", [UserController::class, 'login']);
