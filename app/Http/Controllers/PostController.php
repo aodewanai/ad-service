@@ -67,15 +67,20 @@ class PostController extends Controller
 
     public function edit(PostStoreRequest $request, $id)
     {
-        $post = Post::find($id);
-        $newData = $request->validated();
+        if ($post = Post::find($id)) {
+            $newData = $request->validated();
 
-        $links = implode(" ", $newData['links']);
-        $newData['links'] = $links;
+            $links = implode(" ", $newData['links']);
+            $newData['links'] = $links;
 
-        $post->update($newData);
-        return response([
-            'post' => new PostMoreResource($post)
-        ], 201);
+            $post->update($newData);
+            return response([
+                'post' => new PostMoreResource($post)
+            ], 201);
+        } else {
+            return response([
+                'message' => 'post does not exist'
+            ], 404);
+        }
     }
 }

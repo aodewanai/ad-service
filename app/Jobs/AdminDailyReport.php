@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Mail;
 class AdminDailyReport implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    //protected $details;
+
     /**
      * Create a new job instance.
      *
@@ -26,7 +26,6 @@ class AdminDailyReport implements ShouldQueue
      */
     public function __construct()
     {
-        //$this->details = $details;
     }
 
     /**
